@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+<meta name="google-site-verification" content="c-5a0U2TszvQyHn_s5nUydRU9tvTQrtdU0QbAzqWhEs" />
+    <title>Dolarex — Conversión de dinero</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo" onclick="showSection('home'); return false;">
+                <div class="logo-icon">D</div>
+                <div class="logo-text">Dolar<span>ex</span></div>
+            </a>
+            <nav>
+                <button class="nav-btn active" data-section="home" onclick="showSection('home')">Inicio</button>
+                <button class="nav-btn" data-section="converter" onclick="showSection('converter')">Convertidor</button>
+                <button class="nav-btn disabled" title="Próximamente">Mercados</button>
+                <button class="nav-btn disabled" title="Próximamente">Análisis</button>
+                <button class="nav-btn" data-section="about" onclick="showSection('about')">Acerca de</button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- HOME / CONVERTER -->
+        <section id="section-home">
+            <div class="hero">
+                <h1>Dolarex</h1>
+                <p>Conversión de dinero · Tasas actualizadas diariamente</p>
+            </div>
+
+            <div class="converter-card">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="amount">Cantidad</label>
+                        <input type="number" id="amount" value="1000" min="0" step="any" placeholder="Ej: 1000">
+                    </div>
+                    <div class="form-group">
+                        <label for="fromCurrency">De</label>
+                        <select id="fromCurrency"></select>
+                    </div>
+                </div>
+
+                <div class="swap-container">
+                    <button class="swap-btn" id="swapBtn" title="Intercambiar monedas" aria-label="Intercambiar monedas">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M7 16V4M7 4L3 8M7 4L11 8M17 8V20M17 20L21 16M17 20L13 16"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="toCurrency">A</label>
+                        <select id="toCurrency"></select>
+                    </div>
+                    <div class="form-group" style="justify-content: flex-end;">
+                        <label style="visibility: hidden;">Acción</label>
+                        <button class="convert-btn" id="convertBtn">Convertir</button>
+                    </div>
+                </div>
+
+                <div class="error-msg" id="errorMsg"></div>
+
+                <div class="result-section" id="resultSection">
+                    <div class="result-amount" id="resultAmount">—</div>
+                    <div class="result-rate" id="resultRate">—</div>
+
+                    <div class="deviation-box">
+                        <div class="deviation-title">Relación de fuerza / desviación relativa</div>
+                        <div class="deviation-value neutral" id="deviationValue">—</div>
+                        <div class="deviation-note" id="deviationNote">
+                            Comparación basada en la tasa de cambio actual. Una moneda con mayor poder adquisitivo relativo se muestra como más fuerte.
+                        </div>
+                    </div>
+
+                    <div class="last-update" id="lastUpdate"></div>
+                </div>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>🌐 Monedas populares</h3>
+                    <p>Incluye las principales monedas oficiales del mundo: USD, EUR, MXN, KRW, JPY, GBP, CNY, BRL y muchas más.</p>
+                </div>
+                <div class="info-card">
+                    <h3>📊 Datos actualizados</h3>
+                    <p>Las tasas se obtienen de fuentes públicas diarias. No son cotizaciones en tiempo real de mercado, sino referencias oficiales.</p>
+                </div>
+                <div class="info-card">
+                    <h3>🔒 Uso libre</h3>
+                    <p>Herramienta gratuita para consultas personales. Las secciones de Mercados y Análisis estarán disponibles próximamente.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section id="section-about" style="display: none;">
+            <div class="hero">
+                <h1>Acerca de Dolarex</h1>
+                <p>Conversor de monedas simple, limpio y profesional</p>
+            </div>
+            <div class="converter-card" style="max-width: 700px;">
+                <p style="color: var(--text-secondary); margin-bottom: 16px; line-height: 1.7;">
+                    <strong style="color: var(--text-primary);">Dolarex</strong> es una herramienta de conversión de divisas diseñada con un enfoque minimalista y profesional. 
+                    Permite convertir entre las monedas más utilizadas y reconocidas oficialmente en el mundo.
+                </p>
+                <p style="color: var(--text-secondary); margin-bottom: 16px; line-height: 1.7;">
+                    El porcentaje de desviación o fuerza relativa se calcula a partir de la tasa de cambio actual: indica cuántas unidades de una moneda se necesitan para obtener una unidad de la otra, 
+                    y muestra de forma clara cuál tiene mayor poder de compra relativo en el momento de la consulta.
+                </p>
+                <p style="color: var(--text-secondary); line-height: 1.7;">
+                    Las secciones <em>Mercados</em> y <em>Análisis</em> están en desarrollo y se habilitarán en futuras versiones.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Dolarex · Conversión de dinero · Datos de referencia diarios</p>
+        <p style="margin-top: 6px;">Hecho con precisión · <a href="#" onclick="showSection('about'); return false;">Más información</a></p>
+    </footer>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
